@@ -1,6 +1,7 @@
 var axios = require('axios');
 var express = require('express');
 var morgan = require('morgan');
+var cors = require('cors');
 
 var env_result = require('dotenv').config();
 if (env_result.error && env_result.error.code != 'ENOENT') {
@@ -9,6 +10,7 @@ if (env_result.error && env_result.error.code != 'ENOENT') {
 
 var app = express();
 app.use(morgan('dev'));
+app.use(cors());
 
 app.get("/", function (request, response, next) {
   var zip = request.query.zip || "78133";
