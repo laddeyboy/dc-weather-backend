@@ -2,6 +2,9 @@ var axios = require('axios');
 var express = require('express');
 var morgan = require('morgan');
 
+//fixing cors issue
+var cors = require('cors');
+
 var env_result = require('dotenv').config();
 if (env_result.error && env_result.error.code != 'ENOENT') {
   throw env_result.error;
@@ -9,6 +12,8 @@ if (env_result.error && env_result.error.code != 'ENOENT') {
 
 var app = express();
 app.use(morgan('dev'));
+//fixing cors issue
+app.use(cors());
 
 app.get("/", function (request, response, next) {
   var zip = request.query.zip || "78133";
@@ -25,7 +30,9 @@ app.get("/", function (request, response, next) {
     .catch(next);
 });
 
-var PORT = process.env.PORT || 9000;
+// console.log("WHAT THE FUCK??? ", process.env.PORT);
+// var PORT = process.env.PORT || 9000;
+var PORT = 9000;
 
 app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
